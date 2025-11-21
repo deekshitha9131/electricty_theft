@@ -30,10 +30,10 @@ def generate_small_dataset(num_customers=20, num_days=30, seed=42):
     df = pd.DataFrame(data)
 
     # Save CSV
-    path = "data/raw/small_raw.csv"
+    path = "data/raw/data.csv"
     df.to_csv(path, index=False)
 
-    print("small_raw.csv created with shape:", df.shape)
+    print("data.csv created with shape:", df.shape)
     print("Saved at:", path)
 
     return df
