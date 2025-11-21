@@ -1,0 +1,204 @@
+✅ 3. FULL 3-WEEK TIMELINE (Execution Roadmap)
+This is not a “do it when you feel like it” plan.
+This is a day-by-day, brutal, structured timeline that forces progress.
+
+🗓 WEEK 1 — Data + Features (Foundation Week)
+If you mess up this week, your entire project collapses.
+No modeling until your data pipeline is clean.
+
+DAY 1 – Setup
+Create GitHub repo with the folder structure I gave
+Create requirements.txt
+Set up virtual environment
+Download your smart meter dataset
+Basic EDA plan ready
+Deliverables: Repo skeleton + data downloaded.
+
+DAY 2 – Raw Data Exploration
+Load dataset
+Inspect columns
+Look for missing values
+Check sampling frequency
+Check #customers
+Visualize 2–3 random customers consumption curves
+Deliverables: Notebook 01_exploration.ipynb.
+
+DAY 3 – Data Cleaning
+Handle missing timestamps
+Remove duplicates
+Remove impossible values
+Normalize timestamps
+Save cleaned dataset in /data/processed/
+Deliverables: Working clean_data.py.
+
+DAY 4 – Feature Engineering
+Implement the features I already gave you:
+time features
+rolling mean
+rolling std
+peak/off-peak ratio
+Add at least 5 new ones:
+daily energy
+load factor
+min/max ratio
+hour-to-hour deltas
+volatility index (std/mean)
+Deliverables: Updated feature_engineering.py.
+
+DAY 5 – Visual Checks
+Plot random customer curves
+Identify normal vs weird patterns
+Plot rolling stats
+Plot consumption histograms
+Deliverables: Plots inside 02_feature_engineering.ipynb.
+
+DAY 6 – (Optional but powerful) Synthetic Theft Generation
+Add 3–4 synthetic theft signatures, e.g.:
+constant reading (flatline)
+sharp dips
+bypass-like patterns
+This boosts training for unsupervised models.
+Deliverables: external/synthetic_theft.csv.
+
+DAY 7 – BUFFER / CLEANUP
+Use this day to fix whatever broke.
+Trust me, something will break.
+
+🗓 WEEK 2 — Modeling (Your Make-or-Break Week)
+
+DAY 8 – Isolation Forest
+Train baseline Isolation Forest
+Compute anomaly scores
+Visualize score distribution
+Deliverables: isolation_forest.py + results.
+DAY 9 – Tune Isolation Forest
+Play with:
+contamination rate
+n_estimators
+max_samples
+Try at least 5 configs.
+Deliverables: Updated model + notes.
+
+DAY 10 – LSTM Autoencoder Prep
+Transform data into sliding windows
+Set sequence length (e.g., 24 hours)
+Create train/val splits
+Deliverables: Ready numpy arrays for LSTM.
+
+DAY 11 – Train Autoencoder
+20–30 epochs
+Check training curves
+Calculate reconstruction error
+Deliverables: Model saved in /models/trained_models/.
+
+DAY 12 – Autoencoder Thresholding
+Compute error distribution
+Pick threshold via quantiles or reconstruction score curve
+Compare with Isolation Forest
+Deliverables: threshold_config.json.
+
+DAY 13 – Deep SVDD (Optional but high-value)
+If your hardware can handle it:
+extract latent features
+train SVDD model
+If not, skip it — the first two are strong enough.
+Deliverables: model + scores.
+
+DAY 14 – Model Comparison Day
+Compare:
+ROC-AUC
+PR-AUC
+Top-k anomalies
+False positives
+Deliverables: 03_modeling.ipynb complete.
+
+🗓 WEEK 3 — Dashboard + Report + Resume Material
+This is where the project becomes portfolio-worthy.
+Models without a dashboard = weak project.
+
+DAY 15 – Start Streamlit Dashboard
+Create:
+sidebar
+file loader
+basic customer selection
+Deliverables: skeleton dashboard/app.py.
+
+DAY 16 – Consumption Plot Section
+plot time series
+add anomaly markers
+add hover tooltips
+Deliverables: working visual section.
+
+DAY 17 – Anomaly Score Section
+load model
+compute score
+plot timeline
+highlight suspicious windows
+Deliverables: score visualization panel.
+
+DAY 18 – Explainability Section
+Use SHAP (for Isolation Forest) or feature deltas (for Autoencoder).
+Deliverables: reason-codes for anomalies.
+
+DAY 19 – Customer Ranking Feature
+Rank customers by anomaly score.
+Deliverables: table with sortable risk levels.
+
+DAY 20 – Dashboard Polishing
+color theme
+layout cleanup
+titles + descriptions
+Deliverables: final Streamlit app.
+
+DAY 21 – Final GitHub Cleanup
+README with architecture
+demo GIF
+results
+resume bullet points
+push everything
+Deliverables: production-quality repo.
+
+electricity-theft-detection/
+│
+├── README.md
+├── requirements.txt
+├── setup.py
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── external/
+│
+├── notebooks/
+│   ├── 01_exploration.ipynb
+│   ├── 02_feature_engineering.ipynb
+│   ├── 03_modeling.ipynb
+│   └── 04_evaluation.ipynb
+│
+├── src/
+│   ├── data_prep/
+│   │   ├── load_data.py
+│   │   ├── clean_data.py
+│   │   └── feature_engineering.py
+│   │
+│   ├── models/
+│   │   ├── isolation_forest.py
+│   │   ├── autoencoder.py
+│   │   └── train.py
+│   │
+│   ├── evaluation/
+│   │   ├── metrics.py
+│   │   └── visualization.py
+│   │
+│   └── utils/
+│       ├── config.py
+│       └── logger.py
+│
+├── dashboard/
+│   ├── app.py
+│   ├── components/
+│   └── assets/
+│
+└── models/
+    ├── trained_models/
+    └── threshold_config.json
