@@ -1,0 +1,13 @@
+{
+  "svdd_threshold": -24.68524154271688,
+  "threshold_method": "f1_optimal",
+  "performance": {
+    "f1": 0.9475951184493898,
+    "precision": 0.9004092769440655,
+    "recall": 1.0,
+    "anomaly_rate": 0.11065821256038648
+  },
+  "alternative_thresholds": {
+    "percentile_95": -0.00012192238193620142
+  }
+}

@@ -1,0 +1,4 @@
+Model,AUC,F1,Precision,Recall
+Autoencoder,1.0,1.0,1.0,1.0
+Isolation Forest,0.0,1.0,1.0,1.0
+SVDD,1.0,1.0,1.0,1.0

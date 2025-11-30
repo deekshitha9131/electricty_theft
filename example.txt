@@ -71,6 +71,7 @@ Train baseline Isolation Forest
 Compute anomaly scores
 Visualize score distribution
 Deliverables: isolation_forest.py + results.
+
 DAY 9 – Tune Isolation Forest
 Play with:
 contamination rate

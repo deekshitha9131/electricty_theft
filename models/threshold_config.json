@@ -1,0 +1,21 @@
+{
+  "autoencoder_thresholds": {
+    "percentile_95": 0.06573957204818726,
+    "percentile_99": 0.06897881329059602,
+    "mean_plus_2std": 0.06949193256119036,
+    "mean_plus_3std": 0.07814371033355635,
+    "iqr_method": 0.08185732923448086
+  },
+  "selected_threshold": 0.06573957204818726,
+  "threshold_method": "percentile_95",
+  "reconstruction_stats": {
+    "mean": 0.052188377016458384,
+    "std": 0.008651777772365988,
+    "min": 0.034553177654743195,
+    "max": 0.07327783852815628
+  },
+  "validation_metrics": {
+    "anomaly_detection_rate": 0.0990990990990991,
+    "threshold_performance": "estimated_from_reconstruction_errors"
+  }
+}

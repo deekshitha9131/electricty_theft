@@ -1,0 +1,13 @@
+{
+  "method": "OneClassSVM_on_latent",
+  "ocsvm": {
+    "kernel": "rbf",
+    "gamma": "scale",
+    "nu": 0.01
+  },
+  "latent_dim": 64,
+  "hidden_dim": 256,
+  "num_layers": 2,
+  "generated_on": "2025-11-29T08:08:03.017695Z",
+  "notes": "Train on latent vectors from trained LSTM autoencoder."
+}
