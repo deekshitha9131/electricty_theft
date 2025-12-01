@@ -1,0 +1,86 @@
+/* Professional Electricity Theft Detection Dashboard Theme */
+
+/* App background */
+[data-testid="stAppViewContainer"] {
+    background-color: #f4f7fa;
+}
+
+/* Sidebar styling */
+[data-testid="stSidebar"] {
+    background-color: #1b263b;
+}
+
+[data-testid="stSidebar"] * {
+    color: #ffffff !important;
+}
+
+/* Headers */
+h1, h2, h3, h4 {
+    color: #1b263b;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main title styling */
+h1 {
+    border-bottom: 3px solid #1b263b;
+    padding-bottom: 10px;
+}
+
+/* Tabs styling */
+.stTabs [role="tab"] {
+    font-size: 16px;
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+.stTabs [role="tab"][aria-selected="true"] {
+    background-color: #1b263b;
+    color: white;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Dataframe styling */
+.dataframe {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Metric cards */
+[data-testid="metric-container"] {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Success/Info/Warning boxes */
+.stAlert {
+    border-radius: 8px;
+}
+
+/* Button styling */
+.stButton > button {
+    background-color: #1b263b;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    background-color: #2d3748;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+/* Selectbox styling */
+.stSelectbox > div > div {
+    background-color: white;
+    border-radius: 5px;
+}
