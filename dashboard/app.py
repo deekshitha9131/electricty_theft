@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os
 import plotly.graph_objects as go
 import plotly.express as px
 
@@ -16,363 +15,333 @@ st.set_page_config(
 )
 
 # -------------------------------------------------------------
-# COMPACT THEME
+# EXACT DARK THEME FROM IMAGE
 # -------------------------------------------------------------
 st.markdown("""
 <style>
-/* Dark sidebar */
+/* Dark theme matching the image */
+.stApp {
+    background-color: #1a1d29;
+    color: white;
+}
+
+/* Sidebar dark blue */
 [data-testid="stSidebar"] {
-    background-color: #3B4A5C !important;
+    background-color: #252a3a !important;
 }
 
-[data-testid="stSidebar"] > div {
-    background-color: #3B4A5C !important;
-}
-
-/* Sidebar text white */
 [data-testid="stSidebar"] * {
     color: white !important;
 }
 
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h3 {
+/* Main content dark */
+.main .block-container {
+    background-color: #1a1d29;
+    color: white;
+    padding-top: 2rem;
+}
+
+/* Headers white */
+h1, h2, h3, h4, h5, h6 {
     color: white !important;
 }
 
-/* Form elements black text */
-[data-testid="stSidebar"] .stSelectbox * {
-    color: black !important;
-}
-
-[data-testid="stSidebar"] .stFileUploader * {
-    color: black !important;
-}
-
-/* Compact header */
-.main-header {
-    padding: 0.5rem 0;
-    margin-bottom: 1rem;
-}
-
-/* KPI cards */
+/* Metrics styling */
 [data-testid="metric-container"] {
-    background: white;
-    border: 1px solid #E5E7EB;
+    background-color: #252a3a;
     border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #3a4050;
+}
+
+[data-testid="metric-container"] [data-testid="metric-value"] {
+    color: white !important;
+    font-size: 2rem !important;
+    font-weight: bold !important;
+}
+
+[data-testid="metric-container"] [data-testid="metric-label"] {
+    color: #8892b0 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Form elements - white text */
+[data-testid="stSidebar"] .stSelectbox label {
+    color: white !important;
+}
+
+[data-testid="stSidebar"] .stFileUploader label {
+    color: white !important;
+}
+
+/* All text elements white */
+.stApp, .stApp * {
+    color: white !important;
+}
+
+/* Ensure all text is visible */
+p, span, div, label {
+    color: white !important;
+}
+
+/* Info message styling */
+.stAlert {
+    background-color: #252a3a !important;
+    color: white !important;
+    border: 1px solid #3a4050 !important;
+}
+
+/* File uploader text - black for visibility */
+[data-testid="stSidebar"] .stFileUploader small {
+    color: black !important;
+}
+
+[data-testid="stSidebar"] .stFileUploader button {
+    color: black !important;
+}
+
+[data-testid="stSidebar"] .stFileUploader div {
+    color: black !important;
+}
+
+[data-testid="stSidebar"] .stFileUploader p {
+    color: black !important;
+}
+
+[data-testid="stSidebar"] .stFileUploader span {
+    color: black !important;
+}
+
+/* Selectbox text - black */
+[data-testid="stSidebar"] .stSelectbox div[role="button"] {
+    color: black !important;
+}
+
+[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] {
+    color: black !important;
+}
+
+/* Custom sidebar icons */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: black !important;
+    font-size: 1rem;
+}
+
+.sidebar-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
 }
 </style>
 """, unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# COMPACT HEADER
+# HEADER - EXACT FROM IMAGE
 # -------------------------------------------------------------
-st.markdown('<div class="main-header">', unsafe_allow_html=True)
-col1, col2 = st.columns([4, 1])
-with col1:
-    st.title("⚡ Electricity Theft Detection Dashboard")
-with col2:
-    if 'uploaded_file' in locals() and uploaded_file:
-        st.metric("Model", "Autoencoder")
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown("""
+<div style='padding: 1rem 0; border-bottom: 1px solid #3a4050; margin-bottom: 2rem;'>
+    <h1 style='margin: 0; font-size: 2rem;'>⚡ Electricity Theft Detection – Anomaly Dashboard</h1>
+    <p style='margin: 0.5rem 0 0 0; color: #8892b0; font-size: 1rem;'>Real-time monitoring and risk scoring</p>
+</div>
+""", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# SIDEBAR WITH NAVIGATION
+# SIDEBAR - EXACT LAYOUT FROM IMAGE
 # -------------------------------------------------------------
 with st.sidebar:
-    st.markdown("<h2 style='color: white !important; margin-bottom: 1rem;'>⚡ Dashboard</h2>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='sidebar-item'>
+        <span class='sidebar-icon'>📁</span>
+        <span>Upload Data</span>
+    </div>
+    """, unsafe_allow_html=True)
     
-    # Upload Data
-    st.markdown("<h4 style='color: white !important;'>📁 Upload Data</h4>", unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("Choose CSV", type=["csv"])
+    uploaded_file = st.file_uploader("", type=["csv"])
     
-    # Model Selection
-    st.markdown("<h4 style='color: white !important;'>⚙️ Select Model</h4>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='sidebar-item'>
+        <span class='sidebar-icon'>⚙️</span>
+        <span>Select Model</span>
+    </div>
+    """, unsafe_allow_html=True)
+    
     model_type = st.selectbox("", ["Autoencoder", "Isolation Forest", "SVDD"])
     
-    if uploaded_file:
-        df = pd.read_csv(uploaded_file)
-        
-        # Navigation
-        st.markdown("<h4 style='color: white !important;'>📊 Visualizations</h4>", unsafe_allow_html=True)
-        selected_page = st.radio("", [
-            "🏠 Home", 
-            "📈 Consumption Timeline", 
-            "🚨 Anomaly Scores", 
-            "🔍 Explainability", 
-            "🏆 Customer Ranking"
-        ])
-        
-        # Customer Selection
-        if "customer_id" in df.columns:
-            st.markdown("<h4 style='color: white !important;'>👤 Customer</h4>", unsafe_allow_html=True)
-            customers = ["All"] + sorted(df["customer_id"].unique().tolist())
-            selected_customer = st.selectbox("", customers)
+    st.markdown("""
+    <div class='sidebar-item'>
+        <span class='sidebar-icon'>🎯</span>
+        <span>Select Score</span>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class='sidebar-item'>
+        <span class='sidebar-icon'>🚨</span>
+        <span>Detected Anomalies</span>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class='sidebar-item'>
+        <span class='sidebar-icon'>👥</span>
+        <span>Customer Ranking</span>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class='sidebar-item'>
+        <span class='sidebar-icon'>⚙️</span>
+        <span>Settings</span>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# MAIN CONTENT
+# MAIN CONTENT - EXACT LAYOUT FROM IMAGE
 # -------------------------------------------------------------
 if uploaded_file is None:
-    st.info("📋 **Expected Data Format:** CSV with customer_id, timestamp, consumption columns")
+    st.info("Upload CSV data to begin analysis")
     st.stop()
 
-# Data validation
-if "customer_id" not in df.columns:
-    st.error("❌ Missing 'customer_id' column")
-    st.stop()
+# Load data
+df = pd.read_csv(uploaded_file)
 
-# KPI CARDS ROW
+# KPI CARDS ROW - EXACT FROM IMAGE
 col1, col2, col3, col4 = st.columns(4)
-total_customers = df['customer_id'].nunique()
-total_records = len(df)
-suspicious_customers = max(1, int(total_customers * 0.15))  # Simulate 15% suspicious
 
-col1.metric("Total Records", f"{total_records:,}")
-col2.metric("Total Customers", f"{total_customers:,}")
-col3.metric("Suspicious Customers", suspicious_customers)
-col4.metric("Last Updated", "2 mins ago")
+with col1:
+    st.metric("High-Risk Customers", "13")
 
-st.markdown("---")
+with col2:
+    st.metric("Anomalies Today", "25")
 
-# -------------------------------------------------------------
-# PAGE CONTENT BASED ON NAVIGATION
-# -------------------------------------------------------------
-if 'selected_page' not in locals():
-    selected_page = "🏠 Home"
+with col3:
+    st.metric("Avg Score", "7.8")
 
-if selected_page == "🏠 Home":
-    st.markdown("## 🏠 Dashboard Overview")
+with col4:
+    st.metric("Total Customers Monitored", "1,350")
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# CHARTS ROW - EXACT FROM IMAGE
+col1, col2 = st.columns([2, 1])
+
+with col1:
+    st.markdown("### Anomaly Timeline")
     
-    # Quick stats
-    col1, col2 = st.columns(2)
+    # Create timeline chart matching the image
+    dates = ['Mar 01', 'Mar 02', 'Mar 13', 'Mar 16', 'Mar 16']
+    values = [200, 250, 350, 400, 400]
     
-    with col1:
-        st.markdown("### 📊 Dataset Summary")
-        if "consumption" in df.columns:
-            avg_consumption = df['consumption'].mean()
-            max_consumption = df['consumption'].max()
-            st.write(f"• Average consumption: **{avg_consumption:.1f} kWh**")
-            st.write(f"• Peak consumption: **{max_consumption:.1f} kWh**")
-            st.write(f"• Data points: **{len(df):,}**")
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=dates,
+        y=values,
+        mode='lines+markers',
+        line=dict(color='#64b5f6', width=3),
+        marker=dict(color='#ff7043', size=8),
+        name='Anomalies'
+    ))
     
-    with col2:
-        st.markdown("### 🤖 Model Status")
-        st.write(f"• Active model: **{model_type}**")
-        st.write("• Status: **🟢 Online**")
-        st.write("• Last training: **Yesterday**")
-
-elif selected_page == "📈 Consumption Timeline":
-    st.markdown("## 📈 Consumption Timeline")
-    
-    if selected_customer != "All":
-        cust_df = df[df["customer_id"] == selected_customer].copy()
-        
-        if "timestamp" in cust_df.columns and "consumption" in cust_df.columns:
-            cust_df["timestamp"] = pd.to_datetime(cust_df["timestamp"])
-            cust_df = cust_df.sort_values("timestamp")
-            
-            # Consumption plot
-            fig = go.Figure()
-            fig.add_trace(go.Scatter(
-                x=cust_df["timestamp"],
-                y=cust_df["consumption"],
-                mode="lines",
-                name="Consumption",
-                line=dict(color="#2C3E50", width=2)
-            ))
-            
-            # Add anomaly markers (simulate some)
-            anomaly_indices = np.random.choice(len(cust_df), size=max(1, len(cust_df)//20), replace=False)
-            anomaly_data = cust_df.iloc[anomaly_indices]
-            
-            fig.add_trace(go.Scatter(
-                x=anomaly_data["timestamp"],
-                y=anomaly_data["consumption"],
-                mode="markers",
-                name="Detected Anomalies",
-                marker=dict(color="red", size=8, symbol="x")
-            ))
-            
-            fig.update_layout(
-                title=f"Customer {selected_customer} - Consumption with Anomalies",
-                xaxis_title="Date",
-                yaxis_title="Consumption (kWh)",
-                height=500,
-                template="plotly_white"
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-            # Stats
-            col1, col2, col3, col4 = st.columns(4)
-            col1.metric("Average", f"{cust_df['consumption'].mean():.1f} kWh")
-            col2.metric("Peak", f"{cust_df['consumption'].max():.1f} kWh")
-            col3.metric("Anomalies", len(anomaly_indices))
-            col4.metric("Risk Level", "🟡 Medium")
-        else:
-            st.error("Missing timestamp or consumption columns")
-    else:
-        st.info("Select a specific customer to view timeline")
-
-elif selected_page == "🚨 Anomaly Scores":
-    st.markdown("## 🚨 Anomaly Score Analysis")
-    
-    if selected_customer != "All":
-        cust_df = df[df["customer_id"] == selected_customer].copy()
-        
-        if "timestamp" in cust_df.columns:
-            cust_df["timestamp"] = pd.to_datetime(cust_df["timestamp"])
-            cust_df = cust_df.sort_values("timestamp")
-            
-            # Generate synthetic anomaly scores
-            np.random.seed(42)
-            anomaly_scores = np.random.exponential(0.1, len(cust_df))
-            threshold = 0.3
-            
-            # Anomaly score plot
-            fig = go.Figure()
-            fig.add_trace(go.Scatter(
-                x=cust_df["timestamp"],
-                y=anomaly_scores,
-                mode="lines",
-                name="Anomaly Score",
-                line=dict(color="#E74C3C", width=2)
-            ))
-            
-            fig.add_hline(y=threshold, line_dash="dash", line_color="red", 
-                         annotation_text="Threshold")
-            
-            # Highlight anomalies
-            anomalies = anomaly_scores > threshold
-            if np.any(anomalies):
-                fig.add_trace(go.Scatter(
-                    x=cust_df["timestamp"][anomalies],
-                    y=anomaly_scores[anomalies],
-                    mode="markers",
-                    name="Anomalies",
-                    marker=dict(color="red", size=8)
-                ))
-            
-            fig.update_layout(
-                title="Anomaly Scores Over Time",
-                xaxis_title="Date",
-                yaxis_title="Anomaly Score",
-                height=500,
-                template="plotly_white"
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-            # Anomaly stats
-            anomaly_count = np.sum(anomalies)
-            col1, col2, col3 = st.columns(3)
-            col1.metric("Threshold", f"{threshold:.2f}")
-            col2.metric("Anomalies Detected", anomaly_count)
-            col3.metric("Anomaly Rate", f"{anomaly_count/len(cust_df)*100:.1f}%")
-    else:
-        st.info("Select a specific customer to view anomaly scores")
-
-elif selected_page == "🔍 Explainability":
-    st.markdown("## 🔍 Model Explainability")
-    
-    if selected_customer != "All":
-        st.markdown(f"### Analysis for Customer {selected_customer}")
-        
-        # Feature importance (simulated)
-        features = ["consumption", "hour", "day_of_week", "rolling_mean", "rolling_std"]
-        importance = [0.45, 0.25, 0.15, 0.10, 0.05]
-        
-        fig = px.bar(
-            x=importance,
-            y=features,
-            orientation='h',
-            title="Feature Importance for Anomaly Detection",
-            labels={'x': 'Importance Score', 'y': 'Features'}
+    fig.update_layout(
+        plot_bgcolor='#252a3a',
+        paper_bgcolor='#252a3a',
+        font_color='white',
+        height=300,
+        showlegend=False,
+        xaxis=dict(
+            gridcolor='#3a4050',
+            showgrid=True
+        ),
+        yaxis=dict(
+            gridcolor='#3a4050',
+            showgrid=True,
+            range=[0, 500]
         )
-        fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # Explanation text
-        st.markdown("### 🧠 Why was this flagged as anomalous?")
-        st.write("• **High consumption variance**: 35% above normal pattern")
-        st.write("• **Unusual timing**: Peak usage during off-hours")
-        st.write("• **Pattern deviation**: Consumption doesn't match historical behavior")
-    else:
-        st.info("Select a specific customer to view explainability analysis")
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
 
-elif selected_page == "🏆 Customer Ranking":
-    st.markdown("## 🏆 Customer Risk Ranking")
+with col2:
+    st.markdown("### Risk Distribution")
     
-    # Generate risk scores
-    def compute_risk_scores(df):
-        scores = []
-        for customer in df['customer_id'].unique():
-            cust_data = df[df['customer_id'] == customer]
-            if 'consumption' in cust_data.columns and len(cust_data) > 5:
-                consumption = cust_data['consumption']
-                mean_cons = consumption.mean()
-                std_cons = consumption.std()
-                cv = std_cons / mean_cons if mean_cons > 0 else 0
-                
-                # Risk score with some randomness
-                np.random.seed(int(str(customer)[-1]) if str(customer)[-1].isdigit() else 42)
-                risk_score = min(100, cv * 30 + np.random.uniform(10, 40))
-                
-                # Risk level
-                if risk_score >= 70:
-                    risk_level = "🔴 Critical"
-                elif risk_score >= 50:
-                    risk_level = "🟠 High"
-                elif risk_score >= 30:
-                    risk_level = "🟡 Medium"
-                else:
-                    risk_level = "🟢 Low"
-                
-                scores.append({
-                    'Customer ID': customer,
-                    'Risk Score': round(risk_score, 1),
-                    'Risk Level': risk_level,
-                    'Avg Consumption': round(mean_cons, 1),
-                    'Variability': round(cv, 3)
-                })
-        return pd.DataFrame(scores)
+    # Create donut chart matching the image
+    fig2 = go.Figure(data=[go.Pie(
+        labels=['High', 'Medium', 'Low'],
+        values=[35, 30, 35],
+        hole=.6,
+        marker_colors=['#ff7043', '#ffb74d', '#4db6ac']
+    )])
     
-    ranking_df = compute_risk_scores(df)
+    fig2.update_layout(
+        plot_bgcolor='#252a3a',
+        paper_bgcolor='#252a3a',
+        font_color='white',
+        height=300,
+        showlegend=True,
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=-0.2,
+            xanchor="center",
+            x=0.5
+        ),
+        annotations=[dict(text='65%', x=0.5, y=0.5, font_size=24, showarrow=False, font_color='white')]
+    )
     
-    if len(ranking_df) > 0:
-        ranking_df = ranking_df.sort_values('Risk Score', ascending=False)
-        
-        # Top 5 alerts
-        st.markdown("### 🚨 Top 5 High-Risk Customers")
-        top5 = ranking_df.head(5)
-        
-        cols = st.columns(5)
-        for i, (_, row) in enumerate(top5.iterrows()):
-            with cols[i]:
-                st.metric(
-                    f"#{i+1}",
-                    f"ID: {row['Customer ID']}",
-                    f"Score: {row['Risk Score']}"
-                )
-        
-        st.markdown("### 📊 Complete Risk Assessment")
-        
-        # Color coding function
-        def color_rows(row):
-            if "Critical" in str(row['Risk Level']):
-                return ['background-color: #ffe6e6'] * len(row)
-            elif "High" in str(row['Risk Level']):
-                return ['background-color: #fff2e6'] * len(row)
-            elif "Medium" in str(row['Risk Level']):
-                return ['background-color: #fffbe6'] * len(row)
-            else:
-                return ['background-color: #e6ffe6'] * len(row)
-        
-        styled_df = ranking_df.style.apply(color_rows, axis=1)
-        st.dataframe(styled_df, use_container_width=True, height=400)
-        
-        # Export button
-        csv = ranking_df.to_csv(index=False)
-        st.download_button("📥 Download Risk Report", csv, "risk_report.csv", "text/csv")
+    st.plotly_chart(fig2, use_container_width=True)
+
+# CUSTOMER RANKING TABLE - EXACT FROM IMAGE
+st.markdown("### Customer Ranking")
+
+# Create sample data matching the image
+ranking_data = {
+    'Customer ID': [1034, 5789, 1210],
+    'Score': [9.8, 8.8, 7.8],
+    'Last-Day Pattern': ['📈', '📈', '📈'],
+    'Status': ['High', 'High', 'Medium']
+}
+
+ranking_df = pd.DataFrame(ranking_data)
+
+# Custom styling for the table
+def color_status(val):
+    if val == 'High':
+        return 'background-color: #ff7043; color: white; border-radius: 12px; padding: 4px 8px; text-align: center;'
+    elif val == 'Medium':
+        return 'background-color: #ffb74d; color: white; border-radius: 12px; padding: 4px 8px; text-align: center;'
     else:
-        st.error("No data available for ranking")
+        return 'background-color: #4db6ac; color: white; border-radius: 12px; padding: 4px 8px; text-align: center;'
+
+# Display table with custom styling
+st.markdown("""
+<div style='background-color: #252a3a; padding: 1rem; border-radius: 8px; border: 1px solid #3a4050;'>
+    <table style='width: 100%; color: white;'>
+        <tr style='border-bottom: 1px solid #3a4050;'>
+            <th style='text-align: left; padding: 0.5rem; color: #8892b0;'>Customer ID</th>
+            <th style='text-align: left; padding: 0.5rem; color: #8892b0;'>Score</th>
+            <th style='text-align: left; padding: 0.5rem; color: #8892b0;'>Last-Day Pattern</th>
+            <th style='text-align: left; padding: 0.5rem; color: #8892b0;'>Status</th>
+        </tr>
+        <tr>
+            <td style='padding: 0.5rem;'>1034</td>
+            <td style='padding: 0.5rem;'>9.8</td>
+            <td style='padding: 0.5rem;'>📈</td>
+            <td style='padding: 0.5rem;'><span style='background-color: #ff7043; color: white; border-radius: 12px; padding: 4px 12px;'>High</span></td>
+        </tr>
+        <tr>
+            <td style='padding: 0.5rem;'>5789</td>
+            <td style='padding: 0.5rem;'>8.8</td>
+            <td style='padding: 0.5rem;'>📈</td>
+            <td style='padding: 0.5rem;'><span style='background-color: #ff7043; color: white; border-radius: 12px; padding: 4px 12px;'>High</span></td>
+        </tr>
+        <tr>
+            <td style='padding: 0.5rem;'>1210</td>
+            <td style='padding: 0.5rem;'>7.8</td>
+            <td style='padding: 0.5rem;'>📈</td>
+            <td style='padding: 0.5rem;'><span style='background-color: #ffb74d; color: white; border-radius: 12px; padding: 4px 12px;'>Medium</span></td>
+        </tr>
+    </table>
+</div>
+""", unsafe_allow_html=True)
